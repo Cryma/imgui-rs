@@ -121,3 +121,52 @@ pub fn generate_bindings<P: AsRef<Path>>(
     let bindings = builder.generate().map_err(|_| BindgenError)?;
     Ok(bindings)
 }
+
+pub fn generate_impl_bindings<P: AsRef<Path>>(
+    path: &P,
+    wasm_import_name: Option<String>,
+) -> Result<Bindings, Box<dyn Error>> {
+    let path = path.as_ref();
+    let structs_and_enums = File::open(path.join("structs_and_enums.json"))?;
+    let definitions = File::open(path.join("impl_definitions.json"))?;
+    let header = read_to_string(path.join("cimgui_impl.h"))?;
+
+    let whitelist = parse_whitelist(structs_and_enums, definitions)?;
+    let mut builder = bindgen::builder()
+        .raw_line("#![allow(non_upper_case_globals)]")
+        .raw_line("#![allow(non_camel_case_types)]")
+        .raw_line("#![allow(non_snake_case)]")
+        .raw_line("#![allow(clippy::all)]")
+        .header_contents("cimgui_impl.h", &header)
+        .rust_target(RustTarget::Stable_1_40)
+        .default_enum_style(EnumVariation::Consts)
+        .size_t_is_usize(true)
+        .prepend_enum_name(false)
+        .generate_comments(false)
+        .layout_tests(true)
+        .derive_copy(true)
+        .derive_debug(true)
+        .derive_default(true)
+        .derive_hash(true)
+        .derive_partialeq(true)
+        .derive_eq(true)
+        .impl_debug(true)
+        .rustfmt_bindings(true)
+        .clang_arg("-DCIMGUI_DEFINE_ENUMS_AND_STRUCTS=1");
+
+    if let Some(name) = wasm_import_name {
+        builder = builder.wasm_import_module_name(name);
+    }
+
+    for e in whitelist.structs {
+        builder = builder.whitelist_type(format!("^{}", e));
+    }
+    for e in whitelist.enums {
+        builder = builder.whitelist_type(format!("^{}", e));
+    }
+    for e in whitelist.definitions {
+        builder = builder.whitelist_function(format!("^{}", e));
+    }
+    let bindings = builder.generate().map_err(|_| BindgenError)?;
+    Ok(bindings)
+}

@@ -1,37 +1,47 @@
-typedef struct SDL_Window SDL_Window;
-typedef struct GLFWwindow GLFWwindow;
+#include <stdio.h>
+#include <stdint.h>
+#if defined _WIN32 || defined __CYGWIN__
+    #ifdef CIMGUI_NO_EXPORT
+        #define API
+    #else
+        #define API __declspec(dllexport)
+    #endif
+    #ifndef __GNUC__
+    #define snprintf sprintf_s
+    #endif
+#else
+    #ifdef __GNUC__
+        #define API  __attribute__((__visibility__("default")))
+    #else
+        #define API
+    #endif
+#endif
 
-struct GLFWwindow;
+#if defined __cplusplus
+    #define EXTERN extern "C"
+#else
+    #include <stdarg.h>
+    #include <stdbool.h>
+    #define EXTERN extern
+#endif
 
-struct SDL_Window;
-typedef union SDL_Event SDL_Event;CIMGUI_API bool ImGui_ImplGlfw_InitForOpenGL(GLFWwindow* window,bool install_callbacks);
-CIMGUI_API bool ImGui_ImplGlfw_InitForVulkan(GLFWwindow* window,bool install_callbacks);
-CIMGUI_API void ImGui_ImplGlfw_Shutdown();
-CIMGUI_API void ImGui_ImplGlfw_NewFrame();
-CIMGUI_API void ImGui_ImplGlfw_MouseButtonCallback(GLFWwindow* window,int button,int action,int mods);
-CIMGUI_API void ImGui_ImplGlfw_ScrollCallback(GLFWwindow* window,double xoffset,double yoffset);
-CIMGUI_API void ImGui_ImplGlfw_KeyCallback(GLFWwindow* window,int key,int scancode,int action,int mods);
-CIMGUI_API void ImGui_ImplGlfw_CharCallback(GLFWwindow* window,unsigned int c);
-CIMGUI_API bool ImGui_ImplOpenGL3_Init(const char* glsl_version);
-CIMGUI_API void ImGui_ImplOpenGL3_Shutdown();
-CIMGUI_API void ImGui_ImplOpenGL3_NewFrame();
-CIMGUI_API void ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data);
-CIMGUI_API bool ImGui_ImplOpenGL3_CreateFontsTexture();
-CIMGUI_API void ImGui_ImplOpenGL3_DestroyFontsTexture();
-CIMGUI_API bool ImGui_ImplOpenGL3_CreateDeviceObjects();
-CIMGUI_API void ImGui_ImplOpenGL3_DestroyDeviceObjects();
-CIMGUI_API bool ImGui_ImplOpenGL2_Init();
-CIMGUI_API void ImGui_ImplOpenGL2_Shutdown();
-CIMGUI_API void ImGui_ImplOpenGL2_NewFrame();
-CIMGUI_API void ImGui_ImplOpenGL2_RenderDrawData(ImDrawData* draw_data);
-CIMGUI_API bool ImGui_ImplOpenGL2_CreateFontsTexture();
-CIMGUI_API void ImGui_ImplOpenGL2_DestroyFontsTexture();
-CIMGUI_API bool ImGui_ImplOpenGL2_CreateDeviceObjects();
-CIMGUI_API void ImGui_ImplOpenGL2_DestroyDeviceObjects();
-CIMGUI_API bool ImGui_ImplSDL2_InitForOpenGL(SDL_Window* window,void* sdl_gl_context);
-CIMGUI_API bool ImGui_ImplSDL2_InitForVulkan(SDL_Window* window);
-CIMGUI_API bool ImGui_ImplSDL2_InitForD3D(SDL_Window* window);
-CIMGUI_API bool ImGui_ImplSDL2_InitForMetal(SDL_Window* window);
-CIMGUI_API void ImGui_ImplSDL2_Shutdown();
-CIMGUI_API void ImGui_ImplSDL2_NewFrame(SDL_Window* window);
-CIMGUI_API bool ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);
+#define CIMGUI_API EXTERN API
+
+typedef struct ID3D11DeviceContext ID3D11DeviceContext;
+typedef struct ID3D11Device ID3D11Device;
+
+struct ID3D11Device;
+struct ID3D11DeviceContext;
+CIMGUI_API bool ImGui_ImplDX11_Init(ID3D11Device* device,ID3D11DeviceContext* device_context);
+CIMGUI_API void ImGui_ImplDX11_Shutdown();
+CIMGUI_API void ImGui_ImplDX11_NewFrame();
+CIMGUI_API void ImGui_ImplDX11_RenderDrawData(void* draw_data);
+CIMGUI_API void ImGui_ImplDX11_InvalidateDeviceObjects();
+CIMGUI_API bool ImGui_ImplDX11_CreateDeviceObjects();
+CIMGUI_API bool ImGui_ImplWin32_Init(void* hwnd);
+CIMGUI_API void ImGui_ImplWin32_Shutdown();
+CIMGUI_API void ImGui_ImplWin32_NewFrame();
+CIMGUI_API void ImGui_ImplWin32_EnableDpiAwareness();
+CIMGUI_API float ImGui_ImplWin32_GetDpiScaleForHwnd(void* hwnd);
+CIMGUI_API float ImGui_ImplWin32_GetDpiScaleForMonitor(void* monitor);
+CIMGUI_API long long ImGui_ImplWin32_WndProcHandler(void* hWnd,unsigned int msg,unsigned int* wParam,long long lParam);

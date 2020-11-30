@@ -1,4 +1,4 @@
-use imgui_sys_bindgen::generate_bindings;
+use imgui_sys_bindgen::{generate_bindings, generate_impl_bindings};
 use std::env;
 
 fn main() {
@@ -8,11 +8,19 @@ fn main() {
         .join("imgui-sys")
         .canonicalize()
         .expect("Failed to find imgui-sys directory");
+
     let bindings = generate_bindings(&sys_path.join("third-party"), None)
         .expect("Failed to generate bindings");
     let output_path = sys_path.join("src").join("bindings.rs");
     bindings
         .write_to_file(&output_path)
+        .expect("Failed to write bindings");
+
+    let impl_bindings = generate_impl_bindings(&sys_path.join("third-party"), None)
+        .expect("Failed to generate bindings");
+    let impl_output_path = sys_path.join("src").join("bindings_impl.rs");
+    impl_bindings
+        .write_to_file(&impl_output_path)
         .expect("Failed to write bindings");
 
     let wasm_ffi_import_name = option_env!("IMGUI_RS_WASM_IMPORT_NAME")

@@ -10,6 +10,12 @@ mod bindings;
 #[cfg(not(feature = "wasm"))]
 pub use crate::bindings::*;
 
+#[cfg(not(feature = "wasm"))]
+mod bindings_impl;
+
+#[cfg(not(feature = "wasm"))]
+pub use crate::bindings_impl::*;
+
 impl ImVec2 {
     #[inline]
     pub fn new(x: f32, y: f32) -> ImVec2 {

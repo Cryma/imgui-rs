@@ -4,8 +4,9 @@ use std::fs;
 use std::io;
 use std::path::Path;
 
-const CPP_FILES: [&str; 5] = [
+const CPP_FILES: [&str; 6] = [
     "third-party/cimgui.cpp",
+    "third-party/cimgui_impl.cpp",
     "third-party/imgui/imgui.cpp",
     "third-party/imgui/imgui_demo.cpp",
     "third-party/imgui/imgui_draw.cpp",
