@@ -88,7 +88,7 @@ pub enum ColorPreview {
 bitflags! {
     /// Color edit flags
     #[repr(transparent)]
-    pub struct ColorEditFlags: u32 {
+    pub struct ColorEditFlags: i32 {
         /// ColorEdit, ColorPicker, ColorButton: ignore Alpha component (read only 3 components of
         /// the value).
         const NO_ALPHA = sys::ImGuiColorEditFlags_NoAlpha;

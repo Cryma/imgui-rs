@@ -15,7 +15,7 @@ use crate::TextureId;
 bitflags! {
     /// Font atlas configuration flags
     #[repr(transparent)]
-    pub struct FontAtlasFlags: u32 {
+    pub struct FontAtlasFlags: i32 {
         /// Don't round the height to next power of two
         const NO_POWER_OF_TWO_HEIGHT = sys::ImFontAtlasFlags_NoPowerOfTwoHeight;
         /// Don't build software mouse cursors into the atlas

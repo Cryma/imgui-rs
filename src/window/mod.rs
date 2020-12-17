@@ -15,7 +15,7 @@ pub(crate) mod scroll;
 bitflags! {
     /// Window hover check option flags
     #[repr(transparent)]
-    pub struct WindowHoveredFlags: u32 {
+    pub struct WindowHoveredFlags: i32 {
         /// Return true if any child of the window is hovered
         const CHILD_WINDOWS = sys::ImGuiHoveredFlags_ChildWindows;
         /// Test from root window (top-most parent of the current hierarchy)
@@ -34,7 +34,7 @@ bitflags! {
 bitflags! {
     /// Window focus check option flags
     #[repr(transparent)]
-    pub struct WindowFocusedFlags: u32 {
+    pub struct WindowFocusedFlags: i32 {
         /// Return true if any child of the window is focused
         const CHILD_WINDOWS = sys::ImGuiFocusedFlags_ChildWindows;
         /// Test from root window (top-most parent of the current hierarchy)
@@ -49,7 +49,7 @@ bitflags! {
 bitflags! {
     /// Configuration flags for windows
     #[repr(transparent)]
-    pub struct WindowFlags: u32 {
+    pub struct WindowFlags: i32 {
         /// Disable the title bar
         const NO_TITLE_BAR = sys::ImGuiWindowFlags_NoTitleBar;
         /// Disable resizing with the lower-right grip

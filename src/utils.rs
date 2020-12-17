@@ -8,7 +8,7 @@ use crate::Ui;
 bitflags! {
     /// Item hover check option flags
     #[repr(transparent)]
-    pub struct ItemHoveredFlags: u32 {
+    pub struct ItemHoveredFlags: i32 {
         /// Return true even if a popup window is blocking access to this item
         const ALLOW_WHEN_BLOCKED_BY_POPUP = sys::ImGuiHoveredFlags_AllowWhenBlockedByPopup;
         /// Return true even if an active item is blocking access to this item

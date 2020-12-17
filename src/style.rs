@@ -194,7 +194,7 @@ impl IndexMut<StyleColor> for Style {
 }
 
 /// A color identifier for styling
-#[repr(u32)]
+#[repr(i32)]
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq)]
 pub enum StyleColor {
     Text = sys::ImGuiCol_Text,

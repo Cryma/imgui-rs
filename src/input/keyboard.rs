@@ -2,7 +2,7 @@ use crate::sys;
 use crate::Ui;
 
 /// A key identifier
-#[repr(u32)]
+#[repr(i32)]
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq)]
 pub enum Key {
     Tab = sys::ImGuiKey_Tab,

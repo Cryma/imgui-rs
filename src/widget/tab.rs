@@ -28,7 +28,7 @@ use std::{ptr, thread};
 
 bitflags! {
     #[repr(transparent)]
-    pub struct TabBarFlags: u32 {
+    pub struct TabBarFlags: i32 {
         const REORDERABLE = sys::ImGuiTabBarFlags_Reorderable;
         const AUTO_SELECT_NEW_TABS = sys::ImGuiTabBarFlags_AutoSelectNewTabs;
         const TAB_LIST_POPUP_BUTTON = sys::ImGuiTabBarFlags_TabListPopupButton;
@@ -44,7 +44,7 @@ bitflags! {
 
 bitflags! {
     #[repr(transparent)]
-    pub struct TabItemFlags: u32 {
+    pub struct TabItemFlags: i32 {
         const UNSAVED_DOCUMENT = sys::ImGuiTabItemFlags_UnsavedDocument;
         const SET_SELECTED = sys::ImGuiTabItemFlags_SetSelected;
         const NO_CLOSE_WITH_MIDDLE_MOUSE_BUTTON = sys::ImGuiTabItemFlags_NoCloseWithMiddleMouseButton;

@@ -14,7 +14,7 @@ use crate::sys;
 bitflags! {
     /// Configuration flags
     #[repr(transparent)]
-    pub struct ConfigFlags: u32 {
+    pub struct ConfigFlags: i32 {
         /// Master keyboard navigation enable flag.
         ///
         /// `frame()` will automatically fill `io.nav_inputs` based on `io.keys_down`.
@@ -58,7 +58,7 @@ bitflags! {
 bitflags! {
     /// Backend capabilities
     #[repr(transparent)]
-    pub struct BackendFlags: u32 {
+    pub struct BackendFlags: i32 {
         /// Backend supports gamepad and currently has one connected
         const HAS_GAMEPAD = sys::ImGuiBackendFlags_HasGamepad;
         /// Backend supports honoring `get_mouse_cursor` value to change the OS cursor shape
@@ -75,7 +75,7 @@ bitflags! {
 }
 
 /// An input identifier for navigation
-#[repr(u32)]
+#[repr(i32)]
 #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq)]
 pub enum NavInput {
     Activate = sys::ImGuiNavInput_Activate,

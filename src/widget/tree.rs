@@ -11,7 +11,7 @@ use crate::{Condition, Ui};
 bitflags!(
     /// Flags for tree nodes
     #[repr(transparent)]
-    pub struct TreeNodeFlags: u32 {
+    pub struct TreeNodeFlags: i32 {
         /// Draw as selected
         const SELECTED = sys::ImGuiTreeNodeFlags_Selected;
         /// Full colored frame (e.g. for CollapsingHeader)

@@ -7,7 +7,7 @@ use crate::Ui;
 bitflags!(
     /// Flags for selectables
     #[repr(transparent)]
-    pub struct SelectableFlags: u32 {
+    pub struct SelectableFlags: i32 {
         /// Clicking this don't close parent popup window
         const DONT_CLOSE_POPUPS = sys::ImGuiSelectableFlags_DontClosePopups;
         /// Selectable frame can span all columns (text will still fit in current column)
